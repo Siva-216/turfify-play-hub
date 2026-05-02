@@ -38,6 +38,10 @@ export const Route = createRootRoute({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "TurfZone — Book Your Game" },
+      { name: "twitter:description", content: "Book premium turf slots for football, futsal, and cricket." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d91549a6-859e-40f7-9907-c5f58ee82dff/id-preview-3c0d2c09--5164dbd6-278d-4f69-9a61-20efefa3719d.lovable.app-1777701215350.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d91549a6-859e-40f7-9907-c5f58ee82dff/id-preview-3c0d2c09--5164dbd6-278d-4f69-9a61-20efefa3719d.lovable.app-1777701215350.png" },
     ],
     links: [
       {
