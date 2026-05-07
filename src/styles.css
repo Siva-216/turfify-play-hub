@@ -143,6 +143,10 @@
     border-color: var(--color-border);
   }
 
+  input, button, select, textarea {
+    font-family: inherit;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);

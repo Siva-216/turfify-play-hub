@@ -9,10 +9,29 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TournamentsRouteImport } from './routes/tournaments'
+import { Route as TicketsRouteImport } from './routes/tickets'
+import { Route as GetourbookRouteImport } from './routes/getourbook'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BookIndexRouteImport } from './routes/book.index'
 import { Route as BookTurfIdRouteImport } from './routes/book.$turfId'
 
+const TournamentsRoute = TournamentsRouteImport.update({
+  id: '/tournaments',
+  path: '/tournaments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TicketsRoute = TicketsRouteImport.update({
+  id: '/tickets',
+  path: '/tickets',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GetourbookRoute = GetourbookRouteImport.update({
+  id: '/getourbook',
+  path: '/getourbook',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -21,6 +40,11 @@ const AdminRoute = AdminRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookIndexRoute = BookIndexRouteImport.update({
+  id: '/book/',
+  path: '/book/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BookTurfIdRoute = BookTurfIdRouteImport.update({
@@ -32,35 +56,94 @@ const BookTurfIdRoute = BookTurfIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/getourbook': typeof GetourbookRoute
+  '/tickets': typeof TicketsRoute
+  '/tournaments': typeof TournamentsRoute
   '/book/$turfId': typeof BookTurfIdRoute
+  '/book/': typeof BookIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/getourbook': typeof GetourbookRoute
+  '/tickets': typeof TicketsRoute
+  '/tournaments': typeof TournamentsRoute
   '/book/$turfId': typeof BookTurfIdRoute
+  '/book': typeof BookIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/getourbook': typeof GetourbookRoute
+  '/tickets': typeof TicketsRoute
+  '/tournaments': typeof TournamentsRoute
   '/book/$turfId': typeof BookTurfIdRoute
+  '/book/': typeof BookIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/book/$turfId'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/getourbook'
+    | '/tickets'
+    | '/tournaments'
+    | '/book/$turfId'
+    | '/book/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/book/$turfId'
-  id: '__root__' | '/' | '/admin' | '/book/$turfId'
+  to:
+    | '/'
+    | '/admin'
+    | '/getourbook'
+    | '/tickets'
+    | '/tournaments'
+    | '/book/$turfId'
+    | '/book'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/getourbook'
+    | '/tickets'
+    | '/tournaments'
+    | '/book/$turfId'
+    | '/book/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  GetourbookRoute: typeof GetourbookRoute
+  TicketsRoute: typeof TicketsRoute
+  TournamentsRoute: typeof TournamentsRoute
   BookTurfIdRoute: typeof BookTurfIdRoute
+  BookIndexRoute: typeof BookIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tournaments': {
+      id: '/tournaments'
+      path: '/tournaments'
+      fullPath: '/tournaments'
+      preLoaderRoute: typeof TournamentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tickets': {
+      id: '/tickets'
+      path: '/tickets'
+      fullPath: '/tickets'
+      preLoaderRoute: typeof TicketsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/getourbook': {
+      id: '/getourbook'
+      path: '/getourbook'
+      fullPath: '/getourbook'
+      preLoaderRoute: typeof GetourbookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -73,6 +156,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/book/': {
+      id: '/book/'
+      path: '/book'
+      fullPath: '/book/'
+      preLoaderRoute: typeof BookIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/book/$turfId': {
@@ -88,8 +178,21 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  GetourbookRoute: GetourbookRoute,
+  TicketsRoute: TicketsRoute,
+  TournamentsRoute: TournamentsRoute,
   BookTurfIdRoute: BookTurfIdRoute,
+  BookIndexRoute: BookIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}

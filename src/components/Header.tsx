@@ -11,6 +11,23 @@ export function Header() {
           </div>
           <span className="text-lg font-bold tracking-tight text-foreground">TurfZone</span>
         </Link>
+        <nav className="hidden md:flex items-center gap-6">
+          <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-foreground [&.active]:text-foreground">
+            Home
+          </Link>
+          <Link to="/book" className="text-sm font-medium text-muted-foreground hover:text-foreground [&.active]:text-foreground">
+            Book
+          </Link>
+          <Link to="/tournaments" className="text-sm font-medium text-muted-foreground hover:text-foreground [&.active]:text-foreground">
+            Tournaments
+          </Link>
+          {/* <Link to="/tickets" className="text-sm font-medium text-muted-foreground hover:text-foreground [&.active]:text-foreground">
+            Tickets
+          </Link> */}
+          <Link to="/getourbook" className="text-sm font-medium text-muted-foreground hover:text-foreground [&.active]:text-foreground">
+            Track Booking
+          </Link>
+        </nav>
         <Link
           to="/admin"
           className="flex items-center gap-1.5 rounded-lg bg-secondary px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
